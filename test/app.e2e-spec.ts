@@ -16,9 +16,16 @@ describe('AppController (e2e)', () => {
   });
 
   it('/ (GET)', () => {
+    const getUsers = `query{
+      getUsers{
+        name
+      }
+    }`;
     return request(app.getHttpServer())
-      .get('/')
-      .expect(200)
-      .expect('Hello World!');
+      .post('/graphql')
+      .send({
+        query: getUsers,
+      })
+      .expect(200);
   });
 });
