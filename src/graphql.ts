@@ -8,6 +8,9 @@
 /* eslint-disable */
 export interface User {
     name: string;
+    firstName: string;
+    lastName: string;
+    isActive?: boolean;
 }
 
 export interface IQuery {

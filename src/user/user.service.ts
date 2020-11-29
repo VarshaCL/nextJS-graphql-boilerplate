@@ -1,13 +1,21 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/graphql';
+import { InjectRepository } from '@nestjs/typeorm';
+
+import { Repository } from 'typeorm';
+import { UserEntity } from './user.entity';
 
 @Injectable()
 export class UserService {
-  getUsers(): [User] {
-    return [
-      {
-        name: 'Mock Name',
+  constructor(
+    @InjectRepository(UserEntity)
+    private userRepo: Repository<UserEntity>,
+  ) {}
+
+  async getUsers(): Promise<UserEntity[]> {
+    return await this.userRepo.find({
+      order: {
+        firstName: 'DESC',
       },
-    ];
+    });
   }
 }
